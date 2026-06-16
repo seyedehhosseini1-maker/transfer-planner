@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transfer Planner</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f4f6f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        h2, h3 {
+            color: #34495e;
+        }
+
+        select {
+            padding: 8px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            background-color: white;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 8px;
+        }
+
+        th, td {
+            border: 1px solid #cccccc;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Computer Engineering Transfer Planner</h1>
+
+<h2>Current Program: Computer Engineering</h2>
+
+<select id="programSelect">
+    <option>Computer Science</option>
+    <option>Electrical and Electronics Engineering</option>
+    <option>Mathematics</option>
+</select>
+
+<button onclick="transferCourses()">Transfer</button>
+
+<h3>My Courses</h3>
+<table id="courseTable"></table>
+
+<h3>Equivalent Courses</h3>
+<table id="equivalencyTable"></table>
+
+<script>
+
+const courses = [
+    { course: "Calculus I (ENG)", passed: "Yes" },
+    { course: "Calculus II (ENG)", passed: "Yes" },
+    { course: "Calculus III (ENG)", passed: "Yes" },
+    { course: "Introduction to Linear Algebra (ENG)", passed: "Yes" },
+    { course: "Introduction to Modern Thought I (ENG)", passed: "Yes" },
+    { course: "Introduction to Programming (ENG)", passed: "Yes" },
+    { course: "Practical Course of Georgian for Foreigners (A1.1a) (ENG)", passed: "Yes" },
+    { course: "Practical Course of Georgian for Foreigners (A1.1b) (ENG)", passed: "Yes" },
+    { course: "Academic Techniques (ENG)", passed: "Yes" },
+    { course: "Algorithms and Data Structures (ENG)", passed: "Yes" },
+    { course: "Basics of Entrepreneurship (ENG)", passed: "Yes" },
+    { course: "Basics of Physics I (ENG)", passed: "Yes" },
+    { course: "Basics of Physics II (ENG)", passed: "Yes" },
+    { course: "Circuit Analysis I (ENG)", passed: "Yes" },
+    { course: "Circuit Analysis II (ENG)", passed: "Yes" },
+    { course: "Computational and Statistical Methods (ENG)", passed: "Yes" },
+    { course: "Computer Organization (ENG)", passed: "Yes" },
+    { course: "Computer and Data Networks (ENG)", passed: "Yes" },
+    { course: "Cyberlaw and Ethics (ENG)", passed: "Yes" },
+    { course: "Digital Circuits (ENG)", passed: "Yes" },
+    { course: "Embedded Systems (ENG)", passed: "Yes" },
+    { course: "IT Project Management (ENG)", passed: "Yes" },
+    { course: "Introduction To Computer Modeling (ENG)", passed: "Yes" },
+    { course: "Introduction to Cyber Security (ENG)", passed: "Yes" },
+    { course: "Introduction to General Chemistry (Including Lab) (ENG)", passed: "Yes" },
+    { course: "Introduction to Operating Systems (ENG)", passed: "Yes" },
+    { course: "Mathematical Foundation of Computing (ENG)", passed: "Yes" },
+    { course: "Object Oriented Programming (ENG)", passed: "Yes" },
+    { course: "Principles of Numerical Methods (ENG)", passed: "Yes" },
+    { course: "Signals and Systems (ENG)", passed: "Yes" },
+
+    { course: "Architecture and Programming of Microprocessors (ENG)", passed: "No" },
+    { course: "Computer and Society (ENG)", passed: "No" },
+    { course: "Introduction to Artificial Intelligence (ENG)", passed: "No" },
+    { course: "System Programming (ENG)", passed: "No" },
+    { course: "Systems, Sustainability, and Climate Change - Introduction (ENG)", passed: "No" },
+
+    { course: "Database Systems", passed: "Yes" },
+    { course: "Software Engineering", passed: "Yes" },
+    { course: "Machine Learning", passed: "Yes" },
+    { course: "Compiler Design", passed: "Yes" },
+    { course: "Computer Graphics", passed: "Yes" }
+];
+
+const equivalencies = {
+    "Computer Science": {
+        "Introduction to Programming (ENG)": "Introduction to Programming",
+        "Algorithms and Data Structures (ENG)": "Algorithms and Data Structures",
+        "Object Oriented Programming (ENG)": "Object Oriented Programming",
+        "Introduction to Operating Systems (ENG)": "Operating Systems",
+        "Computer and Data Networks (ENG)": "Computer Networks",
+        "Introduction to Cyber Security (ENG)": "Cyber Security",
+        "Mathematical Foundation of Computing (ENG)": "Discrete Mathematics",
+        "Computer Organization (ENG)": "Computer Architecture",
+        "Database Systems": "Database Systems",
+        "Software Engineering": "Software Engineering",
+        "Machine Learning": "Machine Learning",
+        "Compiler Design": "Compiler Design",
+        "Computer Graphics": "Computer Graphics"
+    },
+
+    "Electrical and Electronics Engineering": {
+        "Calculus I (ENG)": "Engineering Mathematics I",
+        "Calculus II (ENG)": "Engineering Mathematics II",
+        "Calculus III (ENG)": "Engineering Mathematics III",
+        "Basics of Physics I (ENG)": "Physics I",
+        "Basics of Physics II (ENG)": "Physics II",
+        "Circuit Analysis I (ENG)": "Circuit Analysis I",
+        "Circuit Analysis II (ENG)": "Circuit Analysis II",
+        "Digital Circuits (ENG)": "Digital Logic Design",
+        "Signals and Systems (ENG)": "Signals and Systems",
+        "Embedded Systems (ENG)": "Embedded Systems",
+        "Computer Organization (ENG)": "Computer Architecture"
+    },
+
+    "Mathematics": {
+        "Calculus I (ENG)": "Calculus I",
+        "Calculus II (ENG)": "Calculus II",
+        "Calculus III (ENG)": "Calculus III",
+        "Introduction to Linear Algebra (ENG)": "Linear Algebra",
+        "Computational and Statistical Methods (ENG)": "Statistics",
+        "Principles of Numerical Methods (ENG)": "Numerical Methods",
+        "Mathematical Foundation of Computing (ENG)": "Discrete Mathematics"
+    }
+};
+
+function loadCourses() {
+    let table = `
+        <tr>
+            <th>Course</th>
+            <th>Passed</th>
+        </tr>
+    `;
+
+    courses.forEach(c => {
+        table += `
+        <tr>
+            <td>${c.course}</td>
+            <td>${c.passed}</td>
+        </tr>`;
+    });
+
+    document.getElementById("courseTable").innerHTML = table;
+}
+
+function transferCourses() {
+    const program = document.getElementById("programSelect").value;
+
+    let table = `
+        <tr>
+            <th>Completed Course</th>
+            <th>Equivalent Course</th>
+        </tr>
+    `;
+
+    courses.forEach(c => {
+        if (c.passed === "Yes") {
+            let eq = "N/A";
+
+            if (equivalencies[program] && equivalencies[program][c.course]) {
+                eq = equivalencies[program][c.course];
+            }
+
+            table += `
+            <tr>
+                <td>${c.course}</td>
+                <td>${eq}</td>
+            </tr>`;
+        }
+    });
+
+    document.getElementById("equivalencyTable").innerHTML = table;
+}
+
+window.onload = loadCourses;
+
+</script>
+
+</body>
+</html>
