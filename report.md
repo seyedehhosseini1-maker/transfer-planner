@@ -2,106 +2,46 @@
 
 ## 1. Project Overview
 
-This project is a simple web application that helps students simulate a transfer from one academic program to another. It shows how completed courses from the current program can be mapped to equivalent courses in a target program.
+This project is a simple web application that helps students understand how courses from Computer Engineering could be transferred to other programs.
 
-The system is implemented using only HTML, CSS, and JavaScript in a single file, as required by the assignment.
+It shows a list of courses (passed, failed, and in progress) and lets the user select a target program. After clicking the "Transfer" button, it displays possible equivalent courses in that program.
 
----
-
-## 2. Features
-
-The application includes the following features:
-
-- Displays a full list of courses from the Computer Engineering program
-- Shows whether each course is passed or not
-- Provides a dropdown menu to select a target program
-- Implements a "Transfer" button that generates an equivalency table
-- Shows equivalent courses in the selected program
-- Uses simple UI styling for readability
+The whole project is built using only HTML, CSS, and JavaScript in a single file, as required in the assignment.
 
 ---
 
-## 3. Equivalency Algorithm (IMPORTANT PART)
+## 2. How Course Matching Works
 
-The equivalency between courses is determined using a **rule-based mapping system**.
+The equivalency part is done using a simple mapping in JavaScript.
 
-### Logic:
+Basically, each course from my program is matched with a similar course in another program using a predefined object (like a dictionary).
 
-1. A JavaScript object (`equivalencies`) stores mappings between:
-   - Current program courses (keys)
-   - Target program courses (values)
+When the user clicks the button:
+- Only passed courses are considered
+- The program checks if a match exists in the selected program
+- If yes, it shows the equivalent course
+- If not, it shows "N/A"
 
-2. When the user selects a target program:
-   - The system checks each **passed course only**
-   - It searches for a matching key in the selected program's mapping
-
-3. If a match is found:
-   - The equivalent course name is displayed
-
-4. If no match is found:
-   - The system displays `"N/A"`
-
-### Example:
-
-- "Introduction to Programming (ENG)" → "Introduction to Programming"
-- "Algorithms and Data Structures (ENG)" → "Algorithms and Data Structures"
-- "Computer Organization (ENG)" → "Computer Architecture"
-
-### Important Note:
-
-The system does NOT perform automatic AI-based matching. It uses predefined logic to ensure fast and deterministic results.
+It is a simple rule-based system, not an automatic one.
 
 ---
 
-## 4. System Design
+## 3. Possible Future Improvement
 
-The application is built using:
+One improvement that could make this project much more powerful is using AI to match courses automatically.
 
-- HTML → structure
-- CSS → styling
-- JavaScript → logic
+Instead of manually writing equivalencies, the system could read course syllabi and compare them.
 
-All components are embedded in a single file to meet assignment requirements.
+For example:
+- It could extract topics from course descriptions
+- Compare similarity between courses using NLP methods
+- Turn course descriptions into vectors and calculate similarity
+- Then suggest matches automatically based on highest similarity
 
----
-
-## 5. Future Improvements (MOST IMPORTANT SECTION - 5 POINTS)
-
-A major future improvement would be to implement **automatic syllabus-based course matching using AI**.
-
-### Idea:
-
-Instead of manually defining equivalencies, the system could:
-
-1. Load official course syllabi from both programs
-2. Extract key information such as:
-   - Learning outcomes
-   - Topics covered
-   - Credits
-   - Weekly content structure
-
-3. Use Natural Language Processing (NLP) or AI models to compare similarity between courses
-
-### Possible Algorithm:
-
-- Convert syllabus text into embeddings (vector representation)
-- Compute similarity scores between courses
-- Match courses with highest similarity above a threshold
-- Automatically generate equivalency table
-
-### Benefits:
-
-- Removes manual mapping effort
-- More accurate and scalable
-- Can support many programs automatically
-- Adapts when course content changes
-
-### Conclusion:
-
-AI-based syllabus comparison would significantly improve academic transfer systems by making them automatic, scalable, and more precise.
+This would make the system more flexible and reduce manual work a lot.
 
 ---
 
-## 6. Conclusion
+## 4. Final Note
 
-This project demonstrates how a simple web application can simulate academic program transfer and course equivalency using basic web technologies.
+This project is a basic prototype of a transfer system, showing how course equivalency can be represented in a simple web application.
